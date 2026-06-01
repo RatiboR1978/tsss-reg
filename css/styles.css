@@ -1126,10 +1126,15 @@ button {
 
   .speaker__inner {
     grid-template-columns: 1fr;
-    gap: 48px;
+    gap: 32px;
   }
   .speaker__portrait {
-    width: 220px;
+    width: 100%;
+    order: -1;
+  }
+  .speaker__portrait-img {
+    height: clamp(240px, 60vw, 400px);
+    border-radius: 10px;
   }
 
   .footer__inner {
