@@ -110,14 +110,24 @@ button {
 
 .anim-reveal {
   opacity: 0;
-  animation: fadeSlideUp 0.6s ease forwards;
-  animation-delay: var(--delay, 0s);
+  transform: translateY(28px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+  transition-delay: var(--delay, 0s);
+}
+
+.anim-reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 @media (prefers-reduced-motion: reduce) {
   .anim-fadein, .anim-reveal {
     animation: none;
     opacity: 1;
+  }
+  .anim-reveal {
+    transform: none;
+    transition: none;
   }
 }
 
@@ -447,6 +457,24 @@ button {
   margin-bottom: 16px;
 }
 
+.card__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 104px;
+  height: 104px;
+  background: rgba(23,69,194,0.08);
+  border-radius: 10px;
+  margin-bottom: 20px;
+}
+
+.card__icon img {
+  display: block;
+  width: 128px;
+  height: 128px;
+  object-fit: contain;
+}
+
 .card__title {
   font-family: var(--font-display);
   font-size: clamp(0.9rem, 1.5vw, 1.1rem);
@@ -586,6 +614,17 @@ button {
   color: rgba(255,178,0,0.25);
   margin-bottom: 16px;
   letter-spacing: -0.02em;
+}
+
+.prog-card__icon {
+  margin-bottom: 16px;
+}
+
+.prog-card__icon img {
+  display: block;
+  width: 72px;
+  height: 72px;
+  object-fit: contain;
 }
 
 .prog-card__title {
@@ -792,6 +831,15 @@ button {
   pointer-events: none;
 }
 
+.wave-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  pointer-events: none;
+}
+
 .final-cta__inner {
   position: relative;
   z-index: 1;
@@ -870,14 +918,47 @@ button {
   border-radius: 2px;
 }
 
-.footer__license {
+.footer__social {
   grid-column: 1 / -1;
   grid-row: 2;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 24px;
+}
+
+.footer__social-link {
+  font-size: clamp(0.75rem, 1.1vw, 0.85rem);
+  color: rgba(255,255,255,0.45);
+  transition: color var(--transition);
+}
+
+.footer__social-link:hover {
+  color: var(--amber);
+}
+
+.footer__social-link:focus-visible {
+  outline: 2px solid var(--amber);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+.footer__license {
+  grid-column: 1 / -1;
+  grid-row: 3;
   font-size: clamp(0.7rem, 1vw, 0.78rem);
   color: rgba(255,255,255,0.28);
   border-top: 1px solid rgba(255,255,255,0.1);
   padding-top: 20px;
   line-height: 1.6;
+}
+
+.footer__license-link {
+  color: inherit;
+  transition: color var(--transition);
+}
+
+.footer__license-link:hover {
+  color: rgba(255,255,255,0.55);
 }
 
 /* ============================================================
@@ -1014,16 +1095,19 @@ button {
 @media (max-width: 1024px) {
   .hero__inner {
     grid-template-columns: 1fr;
-    text-align: center;
+    text-align: left;
   }
   .hero__content {
-    max-width: 100%;
+    max-width: 455px;
   }
   .hero__visual {
     display: none;
   }
+  .hero__video {
+    object-position: 85% top;
+  }
   .hero__dates {
-    justify-content: center;
+    justify-content: flex-start;
   }
 
   .cards-grid {
@@ -1060,8 +1144,11 @@ button {
     flex-wrap: wrap;
     gap: 16px;
   }
-  .footer__license {
+  .footer__social {
     grid-row: 3;
+  }
+  .footer__license {
+    grid-row: 4;
   }
 }
 
@@ -1084,8 +1171,18 @@ button {
   .hero {
     padding-bottom: 60px;
   }
+  .hero::before {
+    background: linear-gradient(to right,
+      rgba(7,26,68,0.95) 0%,
+      rgba(7,26,68,0.90) 50%,
+      rgba(7,26,68,0.15) 80%,
+      rgba(7,26,68,0)    100%);
+  }
   .hero__inner {
     padding-top: 40px;
+  }
+  .hero__content {
+    max-width: 58%;
   }
   .hero__h1 {
     font-size: clamp(1.8rem, 8vw, 3rem);
@@ -1205,5 +1302,34 @@ button {
 
   .modal__widget-area {
     padding: 20px 20px 28px;
+  }
+}
+
+/* ============================================================
+   RESPONSIVE: 480px (small phones)
+   ============================================================ */
+@media (max-width: 480px) {
+  .hero::before {
+    background: linear-gradient(to right,
+      rgba(7,26,68,0.95) 0%,
+      rgba(7,26,68,0.88) 55%,
+      rgba(7,26,68,0.20) 80%,
+      rgba(7,26,68,0)    100%);
+  }
+  .hero__content {
+    max-width: 72%;
+  }
+  .hero__content .btn--lg {
+    width: 100%;
+    max-width: none;
+    white-space: normal;
+    text-align: center;
+    line-height: 1.3;
+    font-size: 0.85rem;
+  }
+  .hero__dates {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
   }
 }

@@ -99,19 +99,22 @@
      ============================================================ */
   if ('IntersectionObserver' in window) {
     var revealEls = document.querySelectorAll('.anim-reveal');
-    var observer = new IntersectionObserver(function (entries) {
+    var revealObserver = new IntersectionObserver(function (entries) {
       entries.forEach(function (entry) {
         if (entry.isIntersecting) {
-          entry.target.style.animationPlayState = 'running';
-          observer.unobserve(entry.target);
+          entry.target.classList.add('is-visible');
+          revealObserver.unobserve(entry.target);
         }
       });
     }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
 
     revealEls.forEach(function (el) {
-      // Pause until in view
-      el.style.animationPlayState = 'paused';
-      observer.observe(el);
+      revealObserver.observe(el);
+    });
+  } else {
+    // Fallback for browsers without IntersectionObserver
+    document.querySelectorAll('.anim-reveal').forEach(function (el) {
+      el.classList.add('is-visible');
     });
   }
 
@@ -152,6 +155,72 @@
     }, { threshold: 0.5 });
 
     countEls.forEach(function (el) { countObserver.observe(el); });
+  }
+
+  /* ============================================================
+     Wave canvas animation for final-cta
+     ============================================================ */
+  var waveCanvas = document.querySelector('.wave-canvas');
+  if (waveCanvas) {
+    var wCtx = waveCanvas.getContext('2d');
+    var wT = 0;
+
+    function resizeWave() {
+      waveCanvas.width  = waveCanvas.offsetWidth;
+      waveCanvas.height = waveCanvas.offsetHeight;
+    }
+
+    function drawWave() {
+      var w = waveCanvas.width;
+      var h = waveCanvas.height;
+      wT += 0.016;
+
+      wCtx.clearRect(0, 0, w, h);
+      wCtx.fillStyle = 'rgba(255,178,0,0.18)';
+
+      var bars   = 120;
+      var barW   = 2;
+      var step   = w / bars;
+      var cy     = h / 2;
+      var maxAmp = h * 0.38;
+
+      for (var i = 0; i < bars; i++) {
+        var x = i * step + (step - barW) / 2;
+        var nx = i / bars;
+
+        // compound wave — несколько синусоид с разными частотами
+        var amp =
+          0.45 * Math.sin(nx * Math.PI * 6  + wT * 1.1) +
+          0.30 * Math.sin(nx * Math.PI * 14 + wT * 0.7) +
+          0.15 * Math.sin(nx * Math.PI * 26 + wT * 1.5) +
+          0.10 * Math.sin(nx * Math.PI * 4  + wT * 0.4);
+
+        // глобальный пульс амплитуды
+        var pulse = 0.55 + 0.45 * Math.abs(Math.sin(wT * 0.6));
+        var barH  = Math.abs(amp) * maxAmp * pulse;
+
+        // скруглённые бары (rect с небольшим скруглением через arc)
+        var r = Math.min(barW / 2, barH / 2, 3);
+        wCtx.beginPath();
+        wCtx.moveTo(x + r, cy - barH);
+        wCtx.lineTo(x + barW - r, cy - barH);
+        wCtx.arcTo(x + barW, cy - barH, x + barW, cy - barH + r, r);
+        wCtx.lineTo(x + barW, cy + barH - r);
+        wCtx.arcTo(x + barW, cy + barH, x + barW - r, cy + barH, r);
+        wCtx.lineTo(x + r, cy + barH);
+        wCtx.arcTo(x, cy + barH, x, cy + barH - r, r);
+        wCtx.lineTo(x, cy - barH + r);
+        wCtx.arcTo(x, cy - barH, x + r, cy - barH, r);
+        wCtx.closePath();
+        wCtx.fill();
+      }
+
+      requestAnimationFrame(drawWave);
+    }
+
+    resizeWave();
+    window.addEventListener('resize', resizeWave);
+    drawWave();
   }
 
 })();

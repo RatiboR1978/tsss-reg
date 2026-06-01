@@ -61,25 +61,33 @@
       <div class="cards-grid">
 
         <article class="card anim-reveal" style="--delay:0.05s">
-          <div class="card__num" aria-hidden="true">01</div>
+          <div class="card__icon" aria-hidden="true">
+            <img src="img/icons/freedom-voice-icon-transparent.png" alt="" width="128" height="128">
+          </div>
           <h3 class="card__title">Свободу</h3>
           <p class="card__text">Работу, которая не привязывает тебя к офису, позволяет путешествовать и самому распоряжаться своим временем</p>
         </article>
 
         <article class="card anim-reveal" style="--delay:0.1s">
-          <div class="card__num" aria-hidden="true">02</div>
+          <div class="card__icon" aria-hidden="true">
+            <img src="img/icons/stable-income-voice-icon-transparent.png" alt="" width="128" height="128">
+          </div>
           <h3 class="card__title">Стабильный доход</h3>
           <p class="card__text">Стабильный и постоянно растущий заработок, который не зависит от внешних обстоятельств</p>
         </article>
 
         <article class="card anim-reveal" style="--delay:0.15s">
-          <div class="card__num" aria-hidden="true">03</div>
+          <div class="card__icon" aria-hidden="true">
+            <img src="img/icons/professional-development-voice-icon-transparent.png" alt="" width="128" height="128" style="transform:scale(0.95)">
+          </div>
           <h3 class="card__title">Развитие</h3>
           <p class="card__text">Возможность постоянно развиваться в профессиональном плане и быть востребованным специалистом</p>
         </article>
 
         <article class="card anim-reveal" style="--delay:0.2s">
-          <div class="card__num" aria-hidden="true">04</div>
+          <div class="card__icon" aria-hidden="true">
+            <img src="img/icons/comfortable-start-voice-icon-transparent.png" alt="" width="128" height="128" style="transform:scale(0.8)">
+          </div>
           <h3 class="card__title">Комфортный старт</h3>
           <p class="card__text">Понятный и безопасный старт в профессии, который позволит разобраться с чего начать</p>
         </article>
@@ -119,37 +127,49 @@
       <div class="program-grid">
 
         <article class="prog-card anim-reveal" style="--delay:0.05s">
-          <div class="prog-card__num">01</div>
+          <div class="prog-card__icon" aria-hidden="true">
+            <img src="img/icons/01-niches.svg" alt="" width="72" height="72">
+          </div>
           <h3 class="prog-card__title">Ниши</h3>
           <p class="prog-card__text">Разберём все ниши в которых можно зарабатывать с помощью голоса</p>
         </article>
 
         <article class="prog-card anim-reveal" style="--delay:0.1s">
-          <div class="prog-card__num">02</div>
+          <div class="prog-card__icon" aria-hidden="true">
+            <img src="img/icons/02-market.svg" alt="" width="72" height="72">
+          </div>
           <h3 class="prog-card__title">Рынок</h3>
           <p class="prog-card__text">Разберём как устроен рынок озвучки и как на нём заработать</p>
         </article>
 
         <article class="prog-card anim-reveal" style="--delay:0.15s">
-          <div class="prog-card__num">03</div>
+          <div class="prog-card__icon" aria-hidden="true">
+            <img src="img/icons/03-mistakes.svg" alt="" width="72" height="72">
+          </div>
           <h3 class="prog-card__title">Ошибки</h3>
           <p class="prog-card__text">Разберём ошибки, которые мешают зарабатывать на озвучке</p>
         </article>
 
         <article class="prog-card anim-reveal" style="--delay:0.2s">
-          <div class="prog-card__num">04</div>
+          <div class="prog-card__icon" aria-hidden="true">
+            <img src="img/icons/04-money.svg" alt="" width="72" height="72">
+          </div>
           <h3 class="prog-card__title">Деньги</h3>
           <p class="prog-card__text">Разберём, сколько можно зарабатывать на озвучке на старте и в перспективе</p>
         </article>
 
         <article class="prog-card anim-reveal" style="--delay:0.25s">
-          <div class="prog-card__num">05</div>
+          <div class="prog-card__icon" aria-hidden="true">
+            <img src="img/icons/05-community.svg" alt="" width="72" height="72">
+          </div>
           <h3 class="prog-card__title">Комьюнити</h3>
           <p class="prog-card__text">Расскажем о нашем сообществе и о том, как оно поможет вам в работе</p>
         </article>
 
         <article class="prog-card anim-reveal" style="--delay:0.3s">
-          <div class="prog-card__num">06</div>
+          <div class="prog-card__icon" aria-hidden="true">
+            <img src="img/icons/06-growth.svg" alt="" width="72" height="72">
+          </div>
           <h3 class="prog-card__title">Развитие</h3>
           <p class="prog-card__text">Расскажем о путях развития в профессии и о том, как стать востребованным специалистом</p>
         </article>
@@ -217,6 +237,7 @@
   ====================================================== -->
   <section class="final-cta" aria-labelledby="final-cta-heading">
     <div class="final-cta__bg" aria-hidden="true"></div>
+    <canvas class="wave-canvas" aria-hidden="true"></canvas>
     <div class="container final-cta__inner">
       <h2 class="final-cta__heading anim-reveal" id="final-cta-heading">
         КАК НАЧАТЬ<br>ЗАРАБАТЫВАТЬ<br>С ПОМОЩЬЮ ГОЛОСА
@@ -243,12 +264,17 @@
         <p>г. Москва</p>
       </div>
       <nav class="footer__links" aria-label="Юридические документы">
-        <a href="#" class="footer__link">Информация</a>
-        <a href="#" class="footer__link">Политика конфиденциальности</a>
-        <a href="#" class="footer__link">Оферта</a>
+        <a href="/info" class="footer__link">Информация</a>
+        <a href="https://tsss.site/privacy" class="footer__link" target="_blank" rel="noopener">Политика конфиденциальности</a>
+        <a href="https://tsss.site/public_offer" class="footer__link" target="_blank" rel="noopener">Оферта</a>
+      </nav>
+      <nav class="footer__social" aria-label="Социальные сети">
+        <a href="https://t.me/tsss_support1" class="footer__social-link" target="_blank" rel="noopener" aria-label="Telegram">Telegram</a>
+        <a href="mailto:info@tsss.site" class="footer__social-link" aria-label="Email">info@tsss.site</a>
+
       </nav>
       <p class="footer__license">
-        Лицензия на образовательную деятельность № Л035-01298-77/03583668 от 21.10.2025 г.
+        <a href="https://islod.obrnadzor.gov.ru/rlic/details/17c38a56-8e8e-fd12-2413-c4577fc70ebb/" class="footer__license-link" target="_blank" rel="noopener">Лицензия на образовательную деятельность № Л035-01298-77/03583668 от 21.10.2025 г.</a>
       </p>
     </div>
   </footer>
