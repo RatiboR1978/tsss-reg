@@ -266,17 +266,17 @@ button {
   gap: 12px;
 }
 
-.nav__brand-icon {
-  flex-shrink: 0;
+.nav__logo-link {
+  display: flex;
+  align-items: center;
+  opacity: 0.92;
+  transition: opacity var(--transition);
 }
-
-.nav__brand-text {
-  font-family: var(--font-display);
-  font-size: clamp(0.7rem, 1.3vw, 0.85rem);
-  font-weight: 700;
-  letter-spacing: 0.06em;
-  color: var(--white);
-  text-transform: uppercase;
+.nav__logo-link:hover { opacity: 1; }
+.nav__logo-link:focus-visible {
+  outline: 2px solid var(--amber);
+  outline-offset: 4px;
+  border-radius: 4px;
 }
 
 /* ============================================================
@@ -1093,8 +1093,9 @@ button {
   .nav {
     padding: 16px clamp(16px, 4vw, 32px);
   }
-  .nav__brand-text {
-    display: none;
+  .nav__logo-link svg {
+    width: 88px;
+    height: auto;
   }
   .btn--nav {
     font-size: 0.6rem;
