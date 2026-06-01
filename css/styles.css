@@ -16,12 +16,12 @@
   --gray-card:   #F4F6FB;
   --gray-border: #E2E8F4;
 
-  --font-display: 'Unbounded', sans-serif;
+  --font-display: 'Montserrat', sans-serif;
   --font-body:    'Manrope', sans-serif;
 
   --radius-sm: 6px;
-  --radius-md: 12px;
-  --radius-lg: 20px;
+  --radius-md: 6px;
+  --radius-lg: 10px;
   --radius-xl: 32px;
 
   --shadow-card: 0 4px 24px rgba(10,19,38,0.12);
@@ -284,40 +284,39 @@ button {
    ============================================================ */
 .hero {
   position: relative;
-  background: var(--blue);
+  background-color: var(--blue);
+  background-image: url('../img/hero-img1.png');
+  background-size: cover;
+  background-position: center top;
+  background-repeat: no-repeat;
   overflow: hidden;
-  padding-bottom: 80px;
+  padding-bottom: 120px;
+}
+
+.hero__video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+  z-index: 0;
 }
 
 .hero::before {
   content: '';
   position: absolute;
   inset: 0;
-  background:
-    radial-gradient(ellipse 70% 60% at 75% 50%, rgba(23,69,194,0.35) 0%, transparent 70%),
-    radial-gradient(ellipse 50% 70% at 10% 80%, rgba(7,26,68,0.6) 0%, transparent 60%);
+  z-index: 1;
+  background: linear-gradient(to right, rgba(7,26,68,0.78) 0%, rgba(7,26,68,0.55) 50%, rgba(7,26,68,0.2) 100%);
   pointer-events: none;
-}
-
-.hero__wave {
-  position: absolute;
-  bottom: 60px;
-  left: 0;
-  right: 0;
-  pointer-events: none;
-  opacity: 0.8;
-}
-
-.hero__wave svg {
-  width: 100%;
-  height: 180px;
 }
 
 .hero__inner {
   position: relative;
-  z-index: 1;
+  z-index: 2;
   display: grid;
-  grid-template-columns: 1fr auto;
+  grid-template-columns: 1fr;
   gap: 40px;
   align-items: center;
   padding: 60px clamp(16px, 4vw, 64px) 0;
@@ -387,27 +386,6 @@ button {
   margin-bottom: 36px;
 }
 
-/* Hero visual */
-.hero__visual {
-  flex-shrink: 0;
-  width: clamp(200px, 22vw, 300px);
-}
-
-.hero__portrait-wrap {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 16px;
-}
-
-.hero__mic-svg {
-  width: 100%;
-  filter: drop-shadow(0 0 40px rgba(255,178,0,0.12));
-}
-
-.hero__waveform svg {
-  width: 100%;
-}
 
 /* ============================================================
    SECTION: ДЛЯ КОГО
@@ -422,7 +400,11 @@ button {
   color: var(--blue-bright);
   text-align: center;
   margin-bottom: 48px;
-  font-size: clamp(0.7rem, 1.3vw, 0.85rem);
+  font-size: clamp(1.6rem, 3.5vw, 2.8rem);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+  text-transform: none;
 }
 
 .cards-grid {
@@ -457,17 +439,17 @@ button {
 
 .card__num {
   font-family: var(--font-display);
-  font-size: 0.65rem;
+  font-size: clamp(1.4rem, 2.5vw, 2rem);
   font-weight: 900;
-  letter-spacing: 0.1em;
+  letter-spacing: -0.02em;
   color: var(--blue-bright);
-  opacity: 0.5;
+  opacity: 0.25;
   margin-bottom: 16px;
 }
 
 .card__title {
   font-family: var(--font-display);
-  font-size: clamp(0.9rem, 1.5vw, 1.15rem);
+  font-size: clamp(0.9rem, 1.5vw, 1.1rem);
   font-weight: 800;
   color: var(--ink);
   margin-bottom: 12px;
@@ -475,7 +457,7 @@ button {
 }
 
 .card__text {
-  font-size: clamp(0.82rem, 1.2vw, 0.95rem);
+  font-size: clamp(0.8rem, 1.2vw, 0.92rem);
   line-height: 1.65;
   color: #3D4D6A;
 }
@@ -700,9 +682,9 @@ button {
 
 .speaker__inner {
   display: grid;
-  grid-template-columns: 1fr auto;
+  grid-template-columns: 3fr 2fr;
   gap: 80px;
-  align-items: start;
+  align-items: center;
 }
 
 .speaker .section-label {
@@ -730,7 +712,7 @@ button {
 
 .speaker__stats {
   display: flex;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   gap: 16px;
 }
 
@@ -761,22 +743,19 @@ button {
   line-height: 1.3;
 }
 
-/* Portrait placeholder */
+/* Portrait */
 .speaker__portrait {
-  flex-shrink: 0;
-  width: clamp(200px, 22vw, 280px);
-}
-
-.speaker__portrait-inner {
-  position: relative;
-  border-radius: var(--radius-lg);
-  overflow: hidden;
-  box-shadow: var(--shadow-lg);
-}
-
-.speaker__portrait-inner svg {
   width: 100%;
-  height: auto;
+}
+
+.speaker__portrait-img {
+  width: 100%;
+  height: clamp(320px, 40vw, 520px);
+  display: block;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
+  object-fit: cover;
+  object-position: center top;
 }
 
 .speaker__portrait-label {

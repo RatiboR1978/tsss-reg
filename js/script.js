@@ -115,4 +115,43 @@
     });
   }
 
+  /* ============================================================
+     Count-up animation for stat numbers
+     ============================================================ */
+  var countEls = document.querySelectorAll('.stat-plate__num[data-count]');
+
+  if (countEls.length && 'IntersectionObserver' in window) {
+    var countObserver = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (!entry.isIntersecting) return;
+        countObserver.unobserve(entry.target);
+
+        var el      = entry.target;
+        var target  = parseInt(el.getAttribute('data-count'), 10);
+        var suffix  = el.getAttribute('data-suffix') || '';
+        var duration = 1600;
+        var start    = null;
+
+        function formatNum(n) {
+          return n >= 1000
+            ? Math.floor(n / 1000) + ' ' + String(n % 1000 === 0 ? '000' : String(n % 1000).padStart(3, '0'))
+            : String(n);
+        }
+
+        function step(ts) {
+          if (!start) start = ts;
+          var progress = Math.min((ts - start) / duration, 1);
+          var ease = 1 - Math.pow(1 - progress, 3);
+          var current = Math.round(ease * target);
+          el.textContent = formatNum(current) + suffix;
+          if (progress < 1) requestAnimationFrame(step);
+        }
+
+        requestAnimationFrame(step);
+      });
+    }, { threshold: 0.5 });
+
+    countEls.forEach(function (el) { countObserver.observe(el); });
+  }
+
 })();
