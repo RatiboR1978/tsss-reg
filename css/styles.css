@@ -939,6 +939,9 @@ button.date-chip:hover:not(.date-chip--active) {
   justify-content: center;
   gap: 10px;
 }
+.final-cta__dates .dates-label {
+  justify-content: center;
+}
 
 /* ============================================================
    FOOTER
