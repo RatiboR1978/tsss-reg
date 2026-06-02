@@ -41,8 +41,9 @@
           Ведущий: <strong>Тим Шток</strong> — Главный голос молодежного вещания канала «Россия-1»
         </p>
         <div class="hero__dates anim-fadein" style="--delay:0.7s">
-          <span class="date-chip">4 января 19.00 мск</span>
-          <span class="date-chip">4 января 12.00 мск</span>
+          <p class="dates-label">Выберите удобное время:</p>
+          <button class="date-chip js-date-19 js-time-btn" data-time="19" type="button">4 января 19.00 мск</button>
+          <button class="date-chip js-date-12 js-time-btn" data-time="12" type="button">4 января 12.00 мск</button>
         </div>
         <button class="btn btn--primary btn--lg anim-fadein js-open-modal" style="--delay:0.85s" type="button" aria-haspopup="dialog">
           ЗАРЕГИСТРИРОВАТЬСЯ БЕСПЛАТНО
@@ -102,6 +103,7 @@
   ====================================================== -->
   <section class="niches" aria-labelledby="niches-heading">
     <div class="niches__bg-decor" aria-hidden="true"></div>
+    <div class="niches__glow" aria-hidden="true"></div>
     <div class="container niches__inner">
       <div class="niches__poster anim-reveal">
         <p class="niches__line1">В огромном количестве ниш</p>
@@ -243,8 +245,9 @@
         КАК НАЧАТЬ<br>ЗАРАБАТЫВАТЬ<br>С ПОМОЩЬЮ ГОЛОСА
       </h2>
       <div class="final-cta__dates anim-reveal" style="--delay:0.1s">
-        <span class="date-chip date-chip--dark">4 января 19.00 мск</span>
-        <span class="date-chip date-chip--dark">4 января 12.00 мск</span>
+        <p class="dates-label">Выберите удобное время:</p>
+        <button class="date-chip date-chip--dark js-date-19 js-time-btn" data-time="19" type="button">4 января 19.00 мск</button>
+        <button class="date-chip date-chip--dark js-date-12 js-time-btn" data-time="12" type="button">4 января 12.00 мск</button>
       </div>
       <button class="btn btn--primary btn--lg anim-reveal js-open-modal" style="--delay:0.2s" type="button" aria-haspopup="dialog">
         ЗАРЕГИСТРИРОВАТЬСЯ БЕСПЛАТНО
@@ -294,29 +297,47 @@
       <div class="modal__header">
         <h2 class="modal__title" id="modal-title">Регистрация на вебинар</h2>
         <p class="modal__sub">«Как начать зарабатывать с помощью голоса»</p>
+        <p class="dates-label dates-label--modal">Выберите удобное время:</p>
         <div class="modal__dates">
-          <span class="date-chip date-chip--dark">4 января 19.00 мск</span>
-          <span class="date-chip date-chip--dark">4 января 12.00 мск</span>
+          <button class="date-chip date-chip--dark js-date-19 js-time-btn" data-time="19" type="button">4 января 19.00 мск</button>
+          <button class="date-chip date-chip--dark js-date-12 js-time-btn" data-time="12" type="button">4 января 12.00 мск</button>
         </div>
       </div>
-      <!-- Заглушка для виджета GetCourse -->
       <div class="modal__widget-area">
-        <div id="getcourse-widget-placeholder" class="getcourse-placeholder" aria-label="Место для виджета регистрации GetCourse">
-          <div class="getcourse-placeholder__inner">
-            <svg width="40" height="40" viewBox="0 0 40 40" fill="none" aria-hidden="true">
-              <rect width="40" height="40" rx="8" fill="rgba(255,178,0,0.15)"/>
-              <path d="M20 8 C14 8 10 12.5 10 18 C10 22 12 25.5 20 31 C28 25.5 30 22 30 18 C30 12.5 26 8 20 8Z" fill="none" stroke="#FFB200" stroke-width="1.5"/>
-              <rect x="18" y="31" width="4" height="4" rx="1" fill="none" stroke="#FFB200" stroke-width="1.5"/>
-              <rect x="14" y="34" width="12" height="2" rx="1" fill="none" stroke="#FFB200" stroke-width="1.5"/>
-            </svg>
-            <p class="getcourse-placeholder__text">Место для виджета GetCourse</p>
-            <p class="getcourse-placeholder__hint">Здесь будет форма регистрации</p>
-          </div>
+        <div id="widget-area-19" class="widget-area" hidden>
+          <script id="06d3d743a68a20ed46e8bc61a11533f85b07a844" src="https://tsss.site/pl/lite/widget/script?id=1612837"></script>
+        </div>
+        <div id="widget-area-12" class="widget-area" hidden>
+          <script id="ef2d77ab15f6988510636fd2d28eecc16a10e5aa" src="http://tsss.site/pl/lite/widget/script?id=1612836"></script>
         </div>
       </div>
     </div>
   </div>
 
   <script src="js/script.js"></script>
+  <script>
+  (function () {
+    function t_ready(fn) {
+      if (document.readyState !== 'loading') { fn(); }
+      else if (document.addEventListener) { document.addEventListener('DOMContentLoaded', fn); }
+      else { document.attachEvent('onreadystatechange', function () { if (document.readyState !== 'loading') fn(); }); }
+    }
+
+    t_ready(function () {
+      var now = new Date();
+      var moscow = new Date(now.toLocaleString('en-US', { timeZone: 'Europe/Moscow' }));
+      var h = moscow.getHours();
+      var m = moscow.getMinutes();
+
+      // 19:00 — показываем «сегодня» если московское время < 18:00 (даём час до старта)
+      var text19 = (h < 18 || (h === 18 && m === 0)) ? 'СЕГОДНЯ В 19:00 МСК' : 'ЗАВТРА В 19:00 МСК';
+      document.querySelectorAll('.js-date-19').forEach(function (el) { el.textContent = text19; });
+
+      // 12:00 — показываем «сегодня» если московское время < 11:00
+      var text12 = (h < 11 || (h === 11 && m === 0)) ? 'СЕГОДНЯ В 12:00 МСК' : 'ЗАВТРА В 12:00 МСК';
+      document.querySelectorAll('.js-date-12').forEach(function (el) { el.textContent = text12; });
+    });
+  })();
+  </script>
 </body>
 </html>

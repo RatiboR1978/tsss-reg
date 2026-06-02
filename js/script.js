@@ -9,6 +9,20 @@
   var closeBtn   = document.querySelector('.js-close-modal');
   var lastFocus  = null;
 
+  // Time slot selection
+  var selectedTime = '19';
+
+  function selectTime(time) {
+    selectedTime = time;
+    document.querySelectorAll('.js-time-btn').forEach(function (btn) {
+      btn.classList.toggle('date-chip--active', btn.dataset.time === time);
+    });
+    ['19', '12'].forEach(function (t) {
+      var area = document.getElementById('widget-area-' + t);
+      if (area) area.hidden = (t !== time);
+    });
+  }
+
   // Focusable elements selector
   var FOCUSABLE = [
     'a[href]',
@@ -25,6 +39,7 @@
 
   function openModal(triggerEl) {
     lastFocus = triggerEl || document.activeElement;
+    selectTime(selectedTime);
     overlay.removeAttribute('hidden');
     document.body.classList.add('modal-open');
     // Move focus to first focusable inside modal
@@ -52,6 +67,23 @@
       openModal(btn);
     });
   });
+
+  // Time chips on main page: set time then open modal
+  document.querySelectorAll('.hero__dates .js-time-btn, .final-cta__dates .js-time-btn').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      selectedTime = btn.dataset.time;
+      openModal(btn);
+    });
+  });
+
+  // Time chips inside modal: switch widget, stay in modal
+  overlay.addEventListener('click', function (e) {
+    var btn = e.target.closest('.js-time-btn');
+    if (btn) {
+      e.stopPropagation();
+      selectTime(btn.dataset.time);
+    }
+  }, true);
 
   // Close on ✕ button
   if (closeBtn) {
