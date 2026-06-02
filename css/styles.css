@@ -482,8 +482,8 @@ button.date-chip:hover:not(.date-chip--active) {
 }
 
 .card:hover {
-  transform: translateY(-4px);
-  box-shadow: var(--shadow-card);
+  transform: translateY(-8px);
+  box-shadow: var(--shadow-lg);
 }
 
 .card::before {
